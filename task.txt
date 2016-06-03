@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+const int V = 5;
+                                                                                    
+void Dijkstra(int GR[V][V], int st)                                                 
+{                                                                                    
+	int distance[V], count, index, i, u, m = st + 1;                                
+	bool visited[V];                                                                 
+	for (i = 0; i<V; i++)                                                           
+	{                                                                               
+		distance[i] = INT_MAX; visited[i] = false;                                  
+	}                                                                                
+	distance[st] = 0;
+	for (count = 0; count<V - 1; count++)
+	{
+		int min = INT_MAX;
+		for (i = 0; i<V; i++)
+			if (!visited[i] && distance[i] <= min)
+			{
+				min = distance[i]; index = i;
+			}
+		u = index;
+		visited[u] = true;
+		for (i = 0; i<V; i++)
+			if (!visited[i] && GR[u][i] && distance[u] != INT_MAX && distance[u] + GR[u][i]<distance[i])
+				distance[i] = distance[u] + GR[u][i];
+	}
+	cout << "Ioou ec ia?aeuiie aa?oeiu ai inoaeuiuo:\t\n";
+	for (i = 0; i<V; i++) 
+		if (distance[i] != INT_MAX)
+		cout << m << " -> " << i+1 << " = " << distance[i] << endl;
+	else cout << m << " -> " << i+1 << " = " << "ia?o?oo iaainooiai" << endl;
+}
+
+
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	int start, GR[V][V], E, V1, V2, weight;
+	cout << "E=  ";   cin >> E;
+	cout << "Ia?aeuiay aa?oeia=  "; cin >> start;
+
+	for (int i = 0; i < V; i++)
+		for (int j = 0; j < V; j++)
+			GR[i][j] = 0; 
+	
+	for (int i = 0; i < E; i++)
+	{
+		cin >> V1 >> V2 >> weight;
+		GR[V1][V2] = weight;
+	}
+	
+	Dijkstra(GR, start);
+	system("pause");
+	return 0;
+}
